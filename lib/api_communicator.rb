@@ -102,6 +102,37 @@ def get_appearance_info_from_api(character)
 end
 
 ## BONUS
+#FINDING CHARACTER'S homeworld
+
+def get_character_homeworld_from_api(character) #returning homeworld hash
+  all_characters = RestClient.get('http://www.swapi.co/api/people/')
+  character_hash = JSON.parse(all_characters)
+  def find_homeworld(character_hash, character) #getting homeworld url
+    i = 0
+      character_hash["results"].each do |character_input|
+        if character_input["name"] == character
+          return character_hash["results"][i]["homeworld"]
+          i += 1
+        end
+      end
+  end
+  def get_homeworld_info(homeworld_info)
+      RestClient.get(homeworld_info) #getting the information from the homeworld url
+  end
+  homeworld_info = find_homeworld(character_hash, character)
+  return get_homeworld_info(homeworld_info)
+end
+
+
+
+def show_name_of_characters_homeworld(homeworld_info) #just the name of the homeworld from the homeworld hash
+  homeworld_hash = JSON.parse(homeworld_info)
+  return homeworld_hash["name"]
+end
+
+homeworld_hash = get_character_homeworld_from_api("Luke Skywalker")
+puts show_name_of_characters_homeworld(homeworld_hash)
+
 
 # that `get_character_movies_from_api` method is probably pretty long. Does it do more than one job?
 # can you split it up into helper methods?
