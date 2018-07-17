@@ -8,6 +8,6 @@ def get_character_from_user
 end
 
 def get_preference
-  puts "what do you want to know? Type 'films', 'appearance', or 'homeworld'."
+  puts "what do you want to know? Type 'films', 'appearance', 'homeworld', or 'exit' to exit the program."
   return gets.chomp
 end
